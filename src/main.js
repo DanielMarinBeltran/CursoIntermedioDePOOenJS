@@ -1,15 +1,3 @@
-const obj1 ={
-    a: "a",
-    b: "b",
-    c: {
-        d:"d",
-        e: "e",
-    },
-    editA(){
-        this.a = AAAAAAAAA;
-    }
-};
-
 function isObject(subject){
     return typeof subject == "object";
 }
@@ -35,7 +23,7 @@ function  deepCopy(subject){
         const keyIsObject = isObject(subject[key]);
 
         if(keyIsObject){
-            // copySubject[key] = deepCopy(subject[key]);
+            copySubject[key] = deepCopy(subject[key]);
         } else {
             if (subjectIsArray){
                 copySubject.push(subject[key]);
@@ -47,3 +35,58 @@ function  deepCopy(subject){
 
     return copySubject
 }
+
+const studentBase = {
+    name: undefined,
+    email: undefined,
+    age: undefined,
+    approvedCourses: undefined,
+    learningPaths: undefined,
+    socialMedia: {
+        twitter: undefined,
+        instagram: undefined,
+        facebook: undefined,
+    },
+};
+
+
+// const juan = deepCopy(studentBase);
+// Object.seal(juan);
+// Onkect.isSealed(juan);
+// juan.name = "Juanito";
+
+function requiredParam(param){
+    throw new Error(param + " es obligatorio.");
+};
+
+function createStudent({
+    name = requiredParam("name"),
+    email = requiredParam("email"),
+    age,
+    twitter,
+    instagram,
+    facebook,
+    approvedCourses = [],
+    learningPaths = [],
+} = {} ){
+    return {
+        name,
+        age,
+        email,
+        approvedCourses,
+        learningPaths,
+        socialMedia: {
+            twitter,
+            instagram,
+            facebook,
+        },
+    }
+};
+
+
+const juan = createStudent({
+    name:"Juanito",
+    age: 18,
+    email: "juanito@gmail.com",
+    twitter: "fjuandc",
+});
