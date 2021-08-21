@@ -1,47 +1,15 @@
-const juan = {
-    name: "Juanito",
-    age:18,
-    approvedCourses: ["Curso1"],
-    addCourse(newCourse){
-        console.log("This", this);
-        console.log("This.approvedCourses", this.approvedCourses);
-        this.approvedCourses.push(newCourse);
+const obj1 ={
+    a: "a",
+    b: "b",
+    c: {
+        d:"d",
+        e: "e",
+    },
+    editA(){
+        this.a = AAAAAAAAA;
     }
-}
+};
 
-Object.seal(juan);
-Object.freeze(juan);
+const stringifyComplexObj = JSON.stringify(obj1);  // de un objeto crea string
+const obj2 = JSON.stringify(stringifyComplexObj);  // de un string crea un objeto
 
-// console.log(Object.keys(juan));
-// console.log(Object.getOwnPropertyNames(juan));
-// console.log(Object.entries(juan));
-
-// Object.defineProperty(juan, "navigator", {
-//     value: "Chrome",
-//     enumerable: false,
-//     writable: true,
-//     configurable: false,
-// });
-
-// Object.defineProperty(juan, "editor", {
-//     value: "VSCode",
-//     enumerable: true,
-//     writable: false,
-//     configurable: true,
-// });
-
-// Object.defineProperty(juan, "terminal", {
-//     value: "WSL",
-//     enumerable: true,
-//     writable: true,
-//     configurable: false,
-// });
-
-// Object.defineProperty(juan, "pruebaNasa", {
-//     value: "Extraterrestres",
-//     enumerable: false,
-//     writable: false,
-//     configurable: false,
-// });
-
-console.log(Object.getOwnPropertyDescriptors(juan));
