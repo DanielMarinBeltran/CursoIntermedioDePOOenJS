@@ -38,6 +38,42 @@ function isObject(subject) {
   }
   
   
+  function SuperObject() {}
+  SuperObject.isObject = function (subject) {
+    return typeof subject == "object";
+  }
+  SuperObject.deepCopy = function (subject) {
+    let copySubject;
+  
+    const subjectIsObject = isObject(subject);
+    const subjectIsArray = isArray(subject);
+  
+    if (subjectIsArray) {
+      copySubject = [];
+    } else if (subjectIsObject) {
+      copySubject = {};
+    } else {
+      return subject;
+    }
+  
+    for (key in subject) {
+      const keyIsObject = isObject(subject[key]);
+  
+      if (keyIsObject) {
+        copySubject[key] = deepCopy(subject[key]);
+      } else {
+        if (subjectIsArray) {
+          copySubject.push(subject[key]);
+        } else {
+          copySubject[key] = subject[key];
+        }
+      }
+    }
+  
+    return copySubject;
+  }
+  
+  
   function requiredParam(param) {
     throw new Error(param + " es obligatorio");
   }
@@ -48,29 +84,6 @@ function isObject(subject) {
   }) {
     this.name = name;
     this.courses = courses;
-  
-    // const private = {
-    //   "_name": name,
-    //   "_courses": courses,
-    // };
-  
-    // const public = {
-    //   get name() {
-    //     return private["_name"];
-    //   },
-    //   set name(newName) {
-    //     if (newName.length != 0) {
-    //       private["_name"] = newName;
-    //     } else {
-    //       console.warn("Tu nombre debe tener al menos 1 caracter");
-    //     }
-    //   },
-    //   get courses() {
-    //     return private["_courses"];
-    //   },
-    // };
-  
-    // return public;
   }
   
   function Student({
