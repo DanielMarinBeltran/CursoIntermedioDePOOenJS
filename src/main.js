@@ -83,22 +83,34 @@ function createStudent({
             instagram,
             facebook,
         },
-        readName(){
+        get name(){
             return private["_name"];
         },
-        changeName(newName){
-            private["_name"] = newName;
+        set name(newName){
+            if (newName.length != 0){
+                private["_name"] = newName;
+            } else {
+                console.warn("Tu nombre debe tener al menos 1 caracter");
+            }
         },
+
+
+        // readName(){
+        //     return private["_name"];
+        // },
+        // changeName(newName){
+        //     private["_name"] = newName;
+        // },
     };
 
-    Object.defineProperty(public, "readName", {
-        configurable: false,
-        writable: false,
-    },);
-    Object.defineProperty(public, "changeName", {
-        configurable: false,
-        writable: false,
-    },);
+    // Object.defineProperty(public, "readName", {
+    //     configurable: false,
+    //     writable: false,
+    // },);
+    // Object.defineProperty(public, "changeName", {
+    //     configurable: false,
+    //     writable: false,
+    // },);
 
     return public
 };
